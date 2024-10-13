@@ -24,11 +24,18 @@ class EntityHandler:
             # Extract data
             address = client_dat["address"]
             port = str(client_dat["port"])
-            x_pos = float(client_dat["pos.x"])
-            y_pos = float(client_dat["pos.y"])
-
             # Create Client_id (Address:Port)
             client_id = address + ":" + port
+            try:
+                x_pos = float(client_dat["pos.x"])
+                y_pos = float(client_dat["pos.y"])
+            except ValueError:
+                if client_id in self.players:
+                    x_pos = self.players[client_id].pos.x
+                    y_pos = self.players[client_id].pos.y
+                else:
+                    x_pos = y_pos = 0
+
             # Check if client is registered locally
             if not client_id in self.players:
                 # Register new client
