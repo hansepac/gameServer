@@ -12,3 +12,4 @@ def update():
             print(f"NEW: {response['dat']}")
         elif response['msg_type'] == "drop_client":
             print(f"DROP: {response['dat']}")
+            entityHandler.remove_player(response["dat"]["address"], response["dat"]["port"])

@@ -31,8 +31,8 @@ class EntityHandler:
                 y_pos = float(client_dat["pos.y"])
             except ValueError:
                 if client_id in self.players:
-                    x_pos = self.players[client_id].pos.x
-                    y_pos = self.players[client_id].pos.y
+                    x_pos = self.players[client_id].entity.pos.x
+                    y_pos = self.players[client_id].entity.pos.y
                 else:
                     x_pos = y_pos = 0
 
@@ -66,6 +66,9 @@ class EntityHandler:
         # Add to Entities
         self.entities.append(entity)
 
-    def remove_player(self, p: Player):
-        pass
+    def remove_player(self, address: str, port: int):
+        player_id = address + ":" + str(port)
+        player = self.players[player_id]
+        self.entities.remove(player.entity)
+        del self.players[player_id]
 
