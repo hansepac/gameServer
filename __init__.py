@@ -1,5 +1,9 @@
 import socket
 import pygame as pg
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 WINDOW_WIDTH = 500
 WINDOW_HEIGHT = 500
@@ -8,8 +12,8 @@ FRAME_RATE = 100
 CAMERA_SCALE = 10
 
 # Networking setup
-HOST = '127.0.0.1'
-PORT = 12345
+HOST = os.getenv("HOST")
+PORT = os.getenv("PORT")
 
 # Connect to the server
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
