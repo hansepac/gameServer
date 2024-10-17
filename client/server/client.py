@@ -5,7 +5,7 @@ buffer = ""
 
 def send_to_server(client_socket, player):
     # Send player position to the server
-    position_data = f"{player.pos.x},{player.pos.y}"
+    position_data = f"{player.entity.pos.x},{player.entity.pos.y}"
     client_socket.send(position_data.encode('utf-8'))
     global buffer
 

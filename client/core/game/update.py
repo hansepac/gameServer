@@ -5,9 +5,6 @@ def update():
     if onlineState == onlineState.LOCAL:
         pass
     elif onlineState == onlineState.ONLINE:
-        try:
-            update_from_server()
-        except:
-            print("Error with server")
+        update_from_server()
 
     entityHandler.update_player()

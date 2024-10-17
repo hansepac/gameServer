@@ -11,7 +11,7 @@ class Client:
 class GameServer:
     def __init__(self):
         self.HOST = '127.0.0.1'
-        self.PORT = 12345
+        self.PORT = 51234
         self.clients = []
 
     def handle_client(self, client: Client):
@@ -48,8 +48,7 @@ class GameServer:
         for client in self.clients:
             # addr is expected to be a tuple (IP address, port)
             client_info = {
-                "address": client.address[0],
-                "port": client.address[1],
+                "address": client.address,
                 "pos.x": client.pos[0],
                 "pos.y": client.pos[1]
             }

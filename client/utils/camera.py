@@ -1,33 +1,38 @@
 import pygame as pg
 from pygame import Vector2 as Vector
 from utils.screen import get_entities_in_camera
-from __init__ import *
+from math import floor
 
 class CameraBounds:
-    h: tuple
-    v: tuple
+    def __init__(self, h: tuple, v: tuple):
+        self.h: tuple = h
+        self.v: tuple = v
 
 class Camera():
-    def __init__(self, anchor: Vector, scale: int):
+    def __init__(self, anchor: Vector, scale: int = 10):
         """
         pos is center of where the camera is being rendered
-        anchor is where the camera "wants" to bee
+        anchor is where the camera "wants" to be
         """
         self.anchor: Vector = anchor
         self.pos: Vector = anchor
         self.scale: int = scale
-        self.entities: list = []
-        self.ww = WINDOW_WIDTH
-        self.wh = WINDOW_HEIGHT
-        self.c_bound: CameraBounds
-        self.c_bound.h = (-10, 10)
-        self.c_bound.v = (-10, 10)
+        window_surface = pg.display.get_surface()
+        self.ww = window_surface.get_width()
+        self.wh = window_surface.get_height()
+        # Entites within camera bounds
+        self.entities = []
+        # Init Camera Bounds
+        self.c_bound = CameraBounds(
+            h = (-self.ww / self.scale, self.ww / self.scale),
+            v = (-self.wh / self.scale, self.wh / self.scale)
+        )
 
     def update_window_size(self):
         # Get window width and height
         window_surface = pg.display.get_surface()
-        self.window_width = window_surface.get_width()
-        self.window_height = window_surface.get_height()
+        self.ww = window_surface.get_width()
+        self.wh = window_surface.get_height()
     
     def update_camera_pos(self):
         self.pos = self.anchor
@@ -40,8 +45,12 @@ class Camera():
         self.c_bound.h = (self.anchor.x + rel_h_bound, self.anchor.x - rel_h_bound)
         self.c_bound.v = (self.anchor.x + rel_v_bound, self.anchor.x - rel_v_bound)
 
+    # Not being used
     def get_entities(self, all_entities: list):
         self.entities = get_entities_in_camera(all_entities, self.c_bound.h, self.c_bound.v)
 
-    def draw_entities(self):
+    def convert_to_screen(self, coords: tuple | Vector):
+        return (floor(coords[0] * self.scale), floor(coords[1] * self.scale))
+
+    def convert_to_game(self, coords: tuple | Vector):
         pass

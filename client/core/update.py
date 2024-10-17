@@ -1,6 +1,4 @@
-from __init__ import *
-from server.client import send_to_server
-from server.update import update_from_server
+from __init__ import gameState
 import core.title as title
 import core.game as game
 
