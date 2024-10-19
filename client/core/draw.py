@@ -1,5 +1,4 @@
 from __init__ import gameState
-from entities.EntityController import control_circle
 from core import title
 from core import game
 

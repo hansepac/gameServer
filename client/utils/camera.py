@@ -9,7 +9,7 @@ class CameraBounds:
         self.v: tuple = v
 
 class Camera():
-    def __init__(self, anchor: Vector, scale: int = 10):
+    def __init__(self, anchor: Vector, scale: int = 20):
         """
         pos is center of where the camera is being rendered
         anchor is where the camera "wants" to be
@@ -50,7 +50,11 @@ class Camera():
         self.entities = get_entities_in_camera(all_entities, self.c_bound.h, self.c_bound.v)
 
     def convert_to_screen(self, coords: tuple | Vector):
-        return (floor(coords[0] * self.scale), floor(coords[1] * self.scale))
+        x = (coords[0] - self.anchor.x) * self.scale + self.ww / 2
+        y = (coords[1] - self.anchor.y) * self.scale + self.wh / 2
+        return (int(floor(x)), int(floor(y)))
 
     def convert_to_game(self, coords: tuple | Vector):
-        pass
+        x = (coords[0] - self.ww / 2) / self.scale + self.anchor.x
+        y = (coords[1] - self.wh / 2) / self.scale + self.anchor.y
+        return (round(x, 3), round(y, 3))

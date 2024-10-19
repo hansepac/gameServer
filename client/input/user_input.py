@@ -1,18 +1,20 @@
 import pygame as pg
 from input.EventHandler import EventHandler
 
-EventHandler = EventHandler()
+eventHandler = EventHandler()
 
 def game_end_check():
     """Ends game if escape is pressed or if the window is closed"""
-    EventHandler.poll_events()
-    for event in EventHandler.events:
-        if event.type == pg.QUIT or EventHandler.keydown(pg.K_ESCAPE):
+    eventHandler.poll_events()
+    for event in eventHandler.events:
+        if event.type == pg.QUIT or eventHandler.keydown(pg.K_ESCAPE):
             return False
     return True
 
 class Controller:
     def __init__(self):
+        # EventHandler
+        self.eh: EventHandler = eventHandler
         self.w: bool = False
         self.a: bool = False
         self.s: bool = False
@@ -25,28 +27,28 @@ class Controller:
 
     def update(self):
         # WASD
-        if EventHandler.keydown(pg.K_w):
+        if self.eh.keydown(pg.K_w):
             self.w = True
             self.w_s_prioirty = True
-        if EventHandler.keyup(pg.K_w):
+        if self.eh.keyup(pg.K_w):
             self.w = False
             self.w_s_prioirty = False
-        if EventHandler.keydown(pg.K_s):
+        if self.eh.keydown(pg.K_s):
             self.s = True
             self.w_s_prioirty = False
-        if EventHandler.keyup(pg.K_s):
+        if self.eh.keyup(pg.K_s):
             self.s = False
             self.w_s_prioirty = True
-        if EventHandler.keydown(pg.K_a):
+        if self.eh.keydown(pg.K_a):
             self.a = True
             self.a_d_priority = True
-        if EventHandler.keyup(pg.K_a):
+        if self.eh.keyup(pg.K_a):
             self.a = False
             self.a_d_priority = False
-        if EventHandler.keydown(pg.K_d):
+        if self.eh.keydown(pg.K_d):
             self.d = True
             self.a_d_priority = False
-        if EventHandler.keyup(pg.K_d):
+        if self.eh.keyup(pg.K_d):
             self.d = False
             self.a_d_priority = True
 

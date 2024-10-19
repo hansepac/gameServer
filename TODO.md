@@ -1,7 +1,9 @@
 IMMEDIATE:
 
-- Devise structure for handling ONLINE and LOCAL game states, and switching between the two
-- Devise how to define/utlize EntityHandler for both local and online entities
+- Add Map borders
+- Create method in col for checking the player against the map
+- Reorganize update() to include the new method right before the controller
+- Run rest of collisions with incremental checking if vel exceeds collisison error
 
 
 
@@ -13,6 +15,21 @@ BACKLOG:
 - Add in game ticks so differing frame rates have the same movement speed
 - Add map making dev mode
 
+
+PHYSICS PEMDAS:
+
+- Update Map hitboxes
+- Update positions from server
+- Run collisions
+- Gunner Update:
+    - Update hitbox screen rect
+    - Contorller
+    - Add acc to vel
+    - Cap vel
+- Entities:
+    - Update pos with vel
+- Gunner:
+    - Add gravity
 
 
 MOVING PARTS:

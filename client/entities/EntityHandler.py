@@ -1,6 +1,7 @@
 from pygame import Vector2 as Vector
 from entities import Entity, Player, Circle
-from entities.EntityController import control_circle
+from entities.entity_controllers import control_spectre
+from input.user_input import Controller
 from utils.Camera import Camera
 
 
@@ -14,10 +15,9 @@ class EntityHandler:
     def collisions(self):
         pass
 
-    def update_player(self):
-        control_circle(self.player.entity)
+    def control_player(self, con: Controller):
         if self.player:
-            self.player.entity.update()
+            self.player.entity.control(con)
 
     def update_server_pos(self, dat):
         for client_dat in dat:
@@ -43,9 +43,14 @@ class EntityHandler:
                 # Update local position
                 self.players[address].entity.pos = Vector(x_pos, y_pos)
             
-    def update(self):
+    def update(self, camera: Camera, con: Controller):
         for entity in self.entities:
-            entity.update()
+            entity.update(camera, con)
+
+    def update_pos(self, con: Controller, camera: Camera):
+        entity: Entity
+        for entity in self.entities:
+            entity.update_pos(con, camera)
 
     def draw(self, window, camera: Camera):
         for entity in self.entities:
