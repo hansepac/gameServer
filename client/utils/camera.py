@@ -35,26 +35,27 @@ class Camera():
         self.wh = window_surface.get_height()
     
     def update_camera_pos(self):
-        self.pos = self.anchor
+        lagged_cam = (self.anchor - self.pos) * 0.02
+        self.pos += lagged_cam
 
     def update_c_bound(self):
         # Relative distance from anchor center to horiz or vert camera bound
         rel_h_bound = self.ww / 2 / self.scale
         rel_v_bound = self.wh / 2 / self.scale
         # Update camera bounds
-        self.c_bound.h = (self.anchor.x + rel_h_bound, self.anchor.x - rel_h_bound)
-        self.c_bound.v = (self.anchor.x + rel_v_bound, self.anchor.x - rel_v_bound)
+        self.c_bound.h = (self.pos.x + rel_h_bound, self.pos.x - rel_h_bound)
+        self.c_bound.v = (self.pos.x + rel_v_bound, self.pos.x - rel_v_bound)
 
     # Not being used
     def get_entities(self, all_entities: list):
         self.entities = get_entities_in_camera(all_entities, self.c_bound.h, self.c_bound.v)
 
     def convert_to_screen(self, coords: tuple | Vector):
-        x = (coords[0] - self.anchor.x) * self.scale + self.ww / 2
-        y = (coords[1] - self.anchor.y) * self.scale + self.wh / 2
+        x = (coords[0] - self.pos.x) * self.scale + self.ww / 2
+        y = (coords[1] - self.pos.y) * self.scale + self.wh / 2
         return (int(floor(x)), int(floor(y)))
 
     def convert_to_game(self, coords: tuple | Vector):
-        x = (coords[0] - self.ww / 2) / self.scale + self.anchor.x
-        y = (coords[1] - self.wh / 2) / self.scale + self.anchor.y
+        x = (coords[0] - self.ww / 2) / self.scale + self.pos.x
+        y = (coords[1] - self.wh / 2) / self.scale + self.pos.y
         return (round(x, 3), round(y, 3))

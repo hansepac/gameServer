@@ -79,7 +79,7 @@ class MapMaker:
         self.center = Vector(self.width / 2, self.height / 2)
         self.grid = [[None for _ in range(self.width)] for _ in range(self.height)]
 
-    def basic_map(self, width: int = 20, height: int = 10):
+    def basic_map(self, width: int = 25, height: int = 20):
         # Init
         self.empty_map(width, height)
         # Add Floor
@@ -87,8 +87,8 @@ class MapMaker:
         for i in range(self.width):
             self.grid[bottom_row_idx][i] = "X"
         # Add two platforms
-        half_way_idx = floor(self.height / 2) - 1
         for i in range(floor(self.width / 3)):
-            self.grid[half_way_idx][i] = "X"
-            self.grid[half_way_idx][(self.width-1) - i] = "X"
+            self.grid[self.height - 3][i] = "X"
+            self.grid[self.height - 4][(self.width-1) - i] = "X"
+        self.grid[self.height - 4][floor(self.width/2)] = "X"
         return self.grid

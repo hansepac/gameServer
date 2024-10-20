@@ -8,6 +8,6 @@ def draw():
     # Draw Map
     mapHandler.draw(window, camera)
     #mapHandler.draw_border(window, camera)
-    #col.draw_hitboxes(window)
+    col.draw_hitboxes(window)
     # Draw entities
     entityHandler.draw(window, camera)

@@ -12,9 +12,6 @@ class EntityHandler:
         self.entities = []
         self.players: dict[Player] = {}
 
-    def collisions(self):
-        pass
-
     def control_player(self, con: Controller):
         if self.player:
             self.player.entity.control(con)
@@ -50,7 +47,7 @@ class EntityHandler:
     def update_pos(self, con: Controller, camera: Camera):
         entity: Entity
         for entity in self.entities:
-            entity.update_pos(con, camera)
+            entity.update_pos(camera)
 
     def draw(self, window, camera: Camera):
         for entity in self.entities:
