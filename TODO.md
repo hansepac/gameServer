@@ -1,11 +1,5 @@
 IMMEDIATE:
 
-- Add Map borders
-- Create method in col for checking the player against the map
-- Reorganize update() to include the new method right before the controller
-- Run rest of collisions with incremental checking if vel exceeds collisison error
-
-
 
 
 
